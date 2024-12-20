@@ -1,0 +1,67 @@
+.slider {
+  // position: relative;
+  width: auto;
+  height: calc(100vh - 64px);
+  :global {
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 102vh;
+      width: 100vw;
+      max-width: 100%;
+      z-index: 1;
+      background: linear-gradient(to bottom, transparent 75%, black 100%);
+    }
+
+    .slick-list {
+      height: 100vh !important;
+    }
+
+    .slick-dots {
+      z-index: 2;
+      position: absolute;
+      top: calc(100vh - 35px);
+    }
+
+    li.slick-active {
+      .outer {
+        opacity: 1;
+        transition: opacity 0.4s linear;
+        animation: spinner 15s linear 1;
+      }
+    }
+  }
+}
+
+.container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.outer {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 120.6;
+  transform-origin: 20px 20px 0;
+  transform: rotate(-90deg);
+  opacity: 0;
+  transition: opacity 0.4s linear;
+}
+
+.inner {
+  stroke: transparent;
+  fill: #fff;
+}
+
+.active {
+  opacity: 1;
+  transition: opacity 0.4s linear;
+  animation: spinner 15s linear 1;
+}

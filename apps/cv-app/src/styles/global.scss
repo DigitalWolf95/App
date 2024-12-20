@@ -1,0 +1,25 @@
+@import "../../../../node_modules/tailwindcss/base.css";
+@import "../../../../node_modules/tailwindcss/components.css";
+@import "../../../../node_modules/tailwindcss/utilities.css";
+@import "variables";
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-family: $font-family;
+  line-height: 1.5;
+  tab-size: 4;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+svg {
+  display: block;
+  vertical-align: middle;
+  shape-rendering: auto;
+  text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,50 @@
+@import './utility/margins';
+@import './utility/paddings';
+@import './utility/colors';
+@import './utility/text';
+@import './utility/sizes';
+@import './utility/positions';
+@import './utility/flex';
+@import './utility/overflow';
+@import './utility/mouse';
+
+@import './utility/features/dragAndDrop';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
+}
+
+@keyframes spinner {
+  0% {
+    stroke-dashoffset: 125.6;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+.FontSizeFeature {
+  &__small {
+    font-size: 0.75rem !important;
+  }
+
+  &__normal {
+    font-size: 1rem !important;
+  }
+
+  &__large {
+    font-size: 1.3125rem !important;
+  }
+
+  &__extraLarge {
+    font-size: 1.5rem !important;
+  }
+}

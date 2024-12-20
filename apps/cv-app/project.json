@@ -1,0 +1,58 @@
+{
+  "name": "cv-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cv-app",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/cv-app"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/cv-app"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "postcssConfig": "apps/cv-app/postcss.config.js",
+        "buildTarget": "cv-app:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cv-app:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "cv-app:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "cv-app:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/cv-app/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}
