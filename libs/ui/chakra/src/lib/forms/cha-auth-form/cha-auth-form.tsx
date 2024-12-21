@@ -2,7 +2,6 @@
 
 import styles from './cha-auth-form.module.scss';
 import { fnsObjectMergeWithDefaults } from '@digital-wolf/fns';
-// import { useFormik } from 'formik';
 import { useFormikHelpers, useFormikValidator } from '@digital-wolf/hooks';
 import { ChaInput } from '../../elements/cha-input/cha-input';
 
@@ -56,7 +55,7 @@ export function ChaAuthForm({ error, translations, onSubmit, isLoading }: ChaAut
 
   return (
     <form className={styles['container']} onSubmit={formik.handleSubmit}>
-      <ChaInput id={'test-id'} name={'email'} msg={'adawd'} formik={formik} />
+      <ChaInput id={'test-id'} name={'email'} formik={formik} />
       <button type={'submit'}>{t?.btnSignIn}</button>
     </form>
   );
