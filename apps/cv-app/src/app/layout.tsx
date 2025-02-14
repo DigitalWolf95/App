@@ -1,7 +1,6 @@
 import '../styles/global.scss';
 import { BaseContainer } from '../containers/BaseContainer';
 import { ReactNode } from 'react';
-import { ChaProvider } from '@digital-wolf/ui-chakra';
 
 export const metadata = {
   title: 'Welcome to cv-app',
@@ -12,9 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <ChaProvider>
-          <BaseContainer>{children}</BaseContainer>
-        </ChaProvider>
+        <BaseContainer>{children}</BaseContainer>
       </body>
     </html>
   );

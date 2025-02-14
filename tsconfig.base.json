@@ -33,7 +33,6 @@
       "@digital-wolf/styles": ["libs/styles/src/index.ts"],
       "@digital-wolf/types": ["libs/types/src/index.ts"],
       "@digital-wolf/ui-agnostic": ["libs/ui/agnostic/src/index.ts"],
-      "@digital-wolf/ui-chakra": ["libs/ui/chakra/src/index.ts"],
       "@digital-wolf/ui-features": ["libs/ui/features/src/index.ts"],
       "@digital-wolf/ui-helpers": ["libs/ui/helpers/src/index.ts"],
       "@digital-wolf/ui-icons": ["libs/ui/icons/src/index.ts"],
