@@ -6,15 +6,21 @@ import { Layout, theme, Skeleton, MenuProps, Space } from 'antd';
 import { AntIconButton } from '../elements/AntIconButton';
 import { AntMenu, AntMenuItem } from '../elements/AntMenu';
 import { useScreenSize } from '@digital-wolf/hooks';
+import { AntMobileMenu } from '../components/AntMobileMenu';
+import { ReactNamedNode } from '@digital-wolf/types';
+import { useNamedChildren } from '@digital-wolf/ui-helpers';
+
+export type AntNavExpandLayoutChildren = 'Header';
 
 export interface AntNavExpandLayoutProps {
-  children?: ReactNode;
+  children?: ReactNamedNode<AntNavExpandLayoutChildren>;
   collapsed?: boolean;
   noHeader?: boolean;
   noCollapse?: boolean;
   menuProps?: MenuProps;
   selectedMenuKeys?: string[];
   items: AntMenuItem[];
+  mobileItems?: AntMenuItem[];
   onSelectedItem?: (item?: AntMenuItem) => void;
   onChangeCollapsed?: (value: boolean) => void;
 }
@@ -26,6 +32,7 @@ export function AntNavExpandLayout({
   children,
   collapsed,
   items,
+  mobileItems = items,
   noHeader,
   noCollapse,
   selectedMenuKeys,
@@ -33,10 +40,11 @@ export function AntNavExpandLayout({
   onChangeCollapsed,
   onSelectedItem,
 }: AntNavExpandLayoutProps) {
+  const {Header: HeaderChild, Default} = useNamedChildren(children);
   const [value, setValue] = useState(false);
   const { token } = theme.useToken();
   const { colorBgContainer, borderRadiusLG } = token;
-  const { isSmAndUp } = useScreenSize();
+  const { isSmAndUp, isXs } = useScreenSize();
 
   const isCollapsed = useMemo<boolean>(() => {
     if (typeof collapsed === 'boolean') return collapsed;
@@ -77,10 +85,13 @@ export function AntNavExpandLayout({
         {!noHeader && (
           <Header style={{ padding: 0, background: colorBgContainer, borderBottom: '1px solid white' }}>
             {!noCollapse && isSmAndUp && <AntIconButton icon={ToggleIcon} onClick={handleChangeCollapse} />}
+            {HeaderChild}
           </Header>
         )}
-        <Content style={contentStyle}>{children}</Content>
+        <Content style={contentStyle}>{Default}</Content>
       </Layout>
+
+      {isXs && <AntMobileMenu items={mobileItems}/>}
     </Layout>
   );
 }

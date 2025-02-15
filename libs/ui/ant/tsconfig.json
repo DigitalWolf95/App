@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["antd"],
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,

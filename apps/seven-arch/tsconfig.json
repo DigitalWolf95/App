@@ -36,10 +36,6 @@
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
   ],
-  "references": [
-    {
-      "path": "./tsconfig.sw.json"
-    }
-  ],
+  "references": [],
   "extends": "../../tsconfig.base.json"
 }

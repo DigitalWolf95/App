@@ -2,8 +2,9 @@
 
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { LayoutProps } from '../models/LayoutModels';
-import { AntMenuItem, AntNavExpandLayout } from '@digital-wolf/ant';
+import { AntMenuItem, AntNavExpandLayout, AntNavExpandLayoutChildren } from '@digital-wolf/ant';
 import { ItemType } from 'antd/es/menu/interface';
+import { UiHelpersNamedChild } from '@digital-wolf/ui-helpers';
 
 const items: AntMenuItem[] = [
   {
@@ -31,7 +32,9 @@ export function MainLayout({ children }: LayoutProps) {
 
   return (
     <AntNavExpandLayout items={items} onSelectedItem={handleSelectedItem}>
-      {children}
+      <UiHelpersNamedChild<AntNavExpandLayoutChildren>>
+        {children}
+      </UiHelpersNamedChild>
     </AntNavExpandLayout>
   );
 }

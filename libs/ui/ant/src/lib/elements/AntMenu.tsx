@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Children } from 'react';
 import { Menu, MenuProps } from 'antd';
 import { findElementInArrayByValue } from '@digital-wolf/fns';
 
@@ -7,6 +7,7 @@ export interface AntMenuItem {
   label: string;
   icon?: ReactNode;
   to?: string;
+  children?: Omit<AntMenuItem, 'children'>[];
 }
 
 export interface AntMenuProps {
