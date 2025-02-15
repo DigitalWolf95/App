@@ -13,7 +13,7 @@ const footerStyle = {
   alignItems: 'center'
 } as const
 
-const menuStyles = { flex: 1, justifyContent: 'center' } as const
+const menuStyles = { flex: 1, justifyContent: 'center', alignItems: 'center', height: '60px' } as const
 
 export function AntMobileMenu({ items }: AntMobileMenu) {
 

@@ -71,7 +71,7 @@ export function AntNavExpandLayout({
   }
 
   return (
-    <Layout style={{ height: '100vh' }} hasSider>
+    <Layout style={{ height: '100%' }} hasSider>
       {isSmAndUp && (
         <Sider breakpoint={'lg'} trigger={null} collapsible collapsed={isCollapsed}>
           <Space>
