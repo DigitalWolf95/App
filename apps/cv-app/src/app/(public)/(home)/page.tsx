@@ -1,3 +1,9 @@
+import { Flex, Typography } from 'antd';
+
 export default async function Index() {
-  return <div className={'text-red-900'}>Home Page</div>;
+  return (
+    <Flex align={'center'} justify={'center'} style={{ height: '100%' }}>
+      <Typography>Under The Development</Typography>
+    </Flex>
+  );
 }

@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@digital-wolf/analytics": ["libs/analytics/src/index.ts"],
+      "@digital-wolf/ant": ["libs/ui/ant/src/index.ts"],
       "@digital-wolf/api": ["libs/api/src/index.ts"],
       "@digital-wolf/api/nextApi": ["libs/api/src/lib/nextApi/index.ts"],
       "@digital-wolf/api/services": ["libs/api/src/lib/services/index.ts"],

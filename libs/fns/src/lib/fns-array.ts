@@ -28,7 +28,7 @@ export function changeArrayElementPosition<T extends object>(array: T[], fromInd
   return arrayCopy;
 }
 
-export function findElementInArrayByValue<T extends object>(array?: T[], key?: keyof T, value?: any): T | undefined {
+export function findElementInArrayByValue<T extends object>(array?: (T | null)[], key?: keyof T, value?: any): T | undefined {
   if (!array || !key) return undefined;
-  return array.find((element) => element[key] === value);
+  return array.find((element) => element?.[key] === value) ?? undefined;
 }

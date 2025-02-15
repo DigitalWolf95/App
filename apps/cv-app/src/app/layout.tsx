@@ -1,6 +1,7 @@
 import '../styles/global.scss';
 import { BaseContainer } from '../containers/BaseContainer';
 import { ReactNode } from 'react';
+import { AntProvider } from '@digital-wolf/ant';
 
 export const metadata = {
   title: 'Welcome to cv-app',
@@ -11,7 +12,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <BaseContainer>{children}</BaseContainer>
+        <AntProvider>
+          <BaseContainer>{children}</BaseContainer>
+        </AntProvider>
       </body>
     </html>
   );
