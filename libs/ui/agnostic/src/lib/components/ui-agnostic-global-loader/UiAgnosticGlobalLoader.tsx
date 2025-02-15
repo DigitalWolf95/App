@@ -22,7 +22,7 @@ export function UiAgnosticGlobalLoader({ children, isActive = true }: UiAgnostic
     }
    }, [isActive]);
 
-  if (shouldReturnNull) return null;
+  if (shouldReturnNull) return <div/>;
 
   return (
     <div className={clsx(styles['UiAgnosticGlobalLoader'],{[styles['UiAgnosticGlobalLoader--hide']]: shouldHide})}>

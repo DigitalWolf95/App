@@ -1,6 +1,7 @@
 import { ReactNode, CSSProperties } from 'react';
 import { Flex, FlexProps } from 'antd';
 import clsx from 'clsx';
+import styles from './AntFlex.module.scss'
 
 export interface AntFlexProps extends FlexProps {
   children: ReactNode;
@@ -16,5 +17,5 @@ export function AntFlex({ children, fullHeight, center, centerX, centerY, ...res
   const justifyCenter: CSSProperties['justifyContent'] = center || centerX ? 'center' : undefined;
 
 
-  return <Flex className={clsx({ 'h-full': fullHeight })} align={alignCenter} justify={justifyCenter} {...rest} >{children}</Flex>;
+  return <Flex className={clsx('AntFlex',{ [styles['AntFlex--fullHeight']]: fullHeight })} align={alignCenter} justify={justifyCenter} {...rest} >{children}</Flex>;
 }
