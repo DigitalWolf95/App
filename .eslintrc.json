@@ -29,7 +29,8 @@
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-empty-interface": 0,
         "@typescript-eslint/no-extra-semi": "error",
-        "no-extra-semi": "off"
+        "no-extra-semi": "off",
+        "react-hooks/exhaustive-deps": "off"
       }
     },
     {

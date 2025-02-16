@@ -3,23 +3,26 @@
 import clsx from 'clsx';
 import styles from './UiAgnosticGlobalLoader.module.scss';
 import { ReactNode, useEffect, useState } from 'react';
+import { fakeAwait } from '@digital-wolf/fns';
 
 export interface UiAgnosticGlobalLoaderProps {
   children?: ReactNode;
   isActive: boolean;
+  delay?: number;
 }
 
-export function UiAgnosticGlobalLoader({ children, isActive = true }: UiAgnosticGlobalLoaderProps) {
+export function UiAgnosticGlobalLoader({ children, delay = 2000, isActive = true, }: UiAgnosticGlobalLoaderProps) {
   const [shouldHide, setShouldHide] = useState(false);
   const [shouldReturnNull, setShouldReturnNull] = useState(false);
 
   useEffect(() => {
-    if (isActive) {
+    async function start() {
+      await fakeAwait(delay);
       setShouldHide(true);
-      setTimeout(() => { 
-        setShouldReturnNull(true);
-      }, 300);
+      await fakeAwait(700);
+      setShouldReturnNull(true);
     }
+    if (isActive) start();
    }, [isActive]);
 
   if (shouldReturnNull) return <div/>;

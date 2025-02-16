@@ -1,10 +1,10 @@
 {
   "name": "styles-global",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/styles/global/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/styles/src",
   "projectType": "library",
   "stylePreprocessorOptions": {
-    "includePaths": ["libs/styles/global/src/lib"]
+    "includePaths": ["libs/styles/src/lib"]
   },
   "tags": [],
   "targets": {

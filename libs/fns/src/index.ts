@@ -10,3 +10,4 @@ export * from './lib/fns-string';
 export * from './lib/fns-uuid';
 export * from './lib/fns-formData';
 export * from './lib/fns-concurrentlyAwait';
+export * from './lib/fns-promise';
