@@ -32,9 +32,7 @@ export function MainLayout({ children }: LayoutProps) {
 
   return (
     <AntNavExpandLayout items={items} onSelectedItem={handleSelectedItem}>
-      <UiHelpersNamedChild<AntNavExpandLayoutChildren>>
-        {children}
-      </UiHelpersNamedChild>
+      <UiHelpersNamedChild<AntNavExpandLayoutChildren>>{children}</UiHelpersNamedChild>
     </AntNavExpandLayout>
   );
 }

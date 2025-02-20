@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { createContext, ReactNode, useContext, useMemo, useState, useEffect } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState, useEffect } from 'react';
 
 interface SystemContextValues {
   appLoaded: boolean;
@@ -28,8 +28,8 @@ export function SystemContextProvider({ children }: SystemContextProviderProps) 
   const values = useMemo<SystemContextValues>(() => {
     return {
       appLoaded,
-    }
+    };
   }, [appLoaded]);
 
-  return <SystemContext.Provider value={values}>{children}</SystemContext.Provider>
- }
+  return <SystemContext.Provider value={values}>{children}</SystemContext.Provider>;
+}
