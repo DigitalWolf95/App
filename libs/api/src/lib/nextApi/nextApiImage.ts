@@ -1,10 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { deleteImageFromS3, uploadImageToS3 } from './../services/awsClientS3';
+import { deleteImageFromS3, getImageFromS3, uploadImageToS3 } from './../services/awsClientS3';
 import { S3Client } from '@aws-sdk/client-s3';
 import { Image, ImageToStore, ImageToStoreFile } from '@digital-wolf/types';
 import { createImageDoc } from './nextApiImageUtils';
 import { deserialize } from '@digital-wolf/fns';
 import { ApiServerResponse } from './../services';
+
+export async function nextApiImageGET({
+  req,
+  s3Client,
+  bucketName,
+}: {
+  req: NextRequest;
+  s3Client: S3Client;
+  bucketName?: string;
+}) {
+  try {
+    if (!bucketName) throw new Error('BucketName is required');
+    const image = req.nextUrl.searchParams.get('image') || '';
+    if (!image) {
+      return NextResponse.json({ message: 'Image key required', success: false }, { status: 400 });
+    }
+
+    const response = await getImageFromS3({ bucketName, s3Client, key: image });
+
+    if (!response.Body) {
+      return NextResponse.json({ message: 'Image not found' }, { status: 404 });
+    }
+
+    // Create a ReadableStream from the S3 response body
+    const stream = response.Body.transformToWebStream();
+
+    // Return the image as a streaming response
+    return new NextResponse(stream, {
+      headers: {
+        'Content-Type': response.ContentType || 'application/octet-stream',
+        'Content-Length': response.ContentLength?.toString() || '0',
+      },
+    });
+  } catch (e) {
+    return NextResponse.json({ message: 'Error', success: false }, { status: 400 });
+  }
+}
 
 export async function nextApiImagePOST({
   req,
@@ -13,9 +50,10 @@ export async function nextApiImagePOST({
 }: {
   req: NextRequest;
   s3Client: S3Client;
-  bucketName: string;
+  bucketName?: string;
 }): ApiServerResponse<{ image: Image }> {
   try {
+    if (!bucketName) throw new Error('BucketName is required');
     const formData = await req.formData();
     const image = deserialize<{ image: ImageToStore }>(formData).image as ImageToStore;
 
@@ -33,7 +71,15 @@ export async function nextApiImagePOST({
   }
 }
 
-export async function nextApiImageDELETE({ req, s3Client, bucketName }: { req: NextRequest; s3Client: S3Client; bucketName?: string }) {
+export async function nextApiImageDELETE({
+  req,
+  s3Client,
+  bucketName,
+}: {
+  req: NextRequest;
+  s3Client: S3Client;
+  bucketName?: string;
+}) {
   try {
     if (!bucketName) throw new Error('BucketName is required');
     const formData = await req.formData();

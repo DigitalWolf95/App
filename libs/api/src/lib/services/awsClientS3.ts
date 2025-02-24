@@ -1,4 +1,11 @@
-import { S3Client, PutObjectCommand, DeleteObjectCommand, PutObjectCommandInput } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  DeleteObjectCommand,
+  PutObjectCommandInput,
+  GetObjectCommandInput,
+} from '@aws-sdk/client-s3';
 import url from 'url';
 
 export function createS3Client({ region, accessKeyId, secretAccessKey }: CreateS3ClientParams) {
@@ -10,6 +17,12 @@ export function createS3Client({ region, accessKeyId, secretAccessKey }: CreateS
       secretAccessKey,
     },
   });
+}
+
+export async function getImageFromS3({ bucketName, s3Client, key }: GetImageFromS3Params) {
+  const command: GetObjectCommandInput = { Bucket: bucketName, Key: key };
+  const getCommand = new GetObjectCommand(command);
+  return s3Client.send(getCommand);
 }
 
 export async function uploadImageToS3({ image, fileName, bucketName, folder, s3Client }: UploadImageToS3Params) {
@@ -36,6 +49,12 @@ function getKeyFromS3Url(fileUrl: string) {
 
 function getUploadedAssetS3Url(command: PutObjectCommandInput) {
   return `https://${command.Bucket}.s3.eu-north-1.amazonaws.com/${command.Key}`;
+}
+
+interface GetImageFromS3Params {
+  bucketName: string;
+  s3Client: S3Client;
+  key: string;
 }
 
 interface UploadImageToS3Params {
