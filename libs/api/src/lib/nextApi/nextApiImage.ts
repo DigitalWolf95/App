@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { deleteImageFromS3, getImageFromS3, uploadImageToS3 } from './../services/awsClientS3';
 import { S3Client } from '@aws-sdk/client-s3';
 import { Image, ImageToStore, ImageToStoreFile } from '@digital-wolf/types';
-import { createImageDoc } from './nextApiImageUtils';
+import { createImageDoc, get404ImageFromPublic } from './nextApiImageUtils';
 import { deserialize } from '@digital-wolf/fns';
 import { ApiServerResponse } from './../services';
 
@@ -25,7 +25,14 @@ export async function nextApiImageGET({
     const response = await getImageFromS3({ bucketName, s3Client, key: image });
 
     if (!response.Body) {
-      return NextResponse.json({ message: 'Image not found' }, { status: 404 });
+      const image404 = get404ImageFromPublic('404.webp');
+      return new NextResponse(image404, {
+        status: 500,
+        headers: {
+          'Content-Type': 'image/webp', // Set the MIME type for .webp
+          'Content-Length': image404.length.toString(),
+        },
+      });
     }
 
     // Create a ReadableStream from the S3 response body
@@ -39,7 +46,14 @@ export async function nextApiImageGET({
       },
     });
   } catch (e) {
-    return NextResponse.json({ message: 'Error', success: false }, { status: 400 });
+    const image404 = get404ImageFromPublic('404.webp');
+    return new NextResponse(image404, {
+      status: 500,
+      headers: {
+        'Content-Type': 'image/webp', // Set the MIME type for .webp
+        'Content-Length': image404.length.toString(),
+      },
+    });
   }
 }
 
