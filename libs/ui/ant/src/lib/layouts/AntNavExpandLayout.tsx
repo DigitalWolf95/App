@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, ReactNode, useState } from 'react';
+import { useMemo, ReactNode, useState, HTMLProps } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, theme, Skeleton, MenuProps, Space } from 'antd';
+import { Layout, theme, Skeleton, MenuProps, Space, LayoutProps } from 'antd';
 import { AntIconButton } from '../elements/AntIconButton';
 import { AntMenu, AntMenuItem } from '../elements/AntMenu';
 import { useScreenSize } from '@digital-wolf/hooks';
@@ -18,9 +18,13 @@ export interface AntNavExpandLayoutProps {
   noHeader?: boolean;
   noCollapse?: boolean;
   menuProps?: MenuProps;
+  headerProps?: HTMLProps<HTMLDivElement>;
+  mainLayoutProps?: LayoutProps;
+  contentLayoutProps?: LayoutProps;
   selectedMenuKeys?: string[];
   items: AntMenuItem[];
   mobileItems?: AntMenuItem[];
+  transparent?: boolean;
   onSelectedItem?: (item?: AntMenuItem) => void;
   onChangeCollapsed?: (value: boolean) => void;
 }
@@ -37,11 +41,15 @@ export function AntNavExpandLayout({
   noCollapse,
   selectedMenuKeys,
   menuProps = {},
+  headerProps = {},
+  mainLayoutProps,
+  contentLayoutProps,
+  transparent,
   onChangeCollapsed,
   onSelectedItem,
 }: AntNavExpandLayoutProps) {
-  const {Header: HeaderChild, Default} = useNamedChildren(children);
-  const [value, setValue] = useState(false);
+  const { Header: HeaderChild, Default } = useNamedChildren(children);
+  const [value, setValue] = useState(true);
   const { token } = theme.useToken();
   const { colorBgContainer, borderRadiusLG } = token;
   const { isSmAndUp, isXs } = useScreenSize();
@@ -55,10 +63,40 @@ export function AntNavExpandLayout({
     () => ({
       margin: isSmAndUp ? '24px 16px' : '24px 5px',
       minHeight: 280,
-      background: colorBgContainer,
+      background: transparent ? 'transparent' : colorBgContainer,
       borderRadius: borderRadiusLG,
     }),
-    [colorBgContainer, borderRadiusLG, isSmAndUp]
+    [colorBgContainer, borderRadiusLG, isSmAndUp, transparent]
+  );
+
+  const sliderStyles = useMemo(
+    () => ({
+      ...(transparent && { backgroundColor: 'transparent' }),
+    }),
+    [transparent]
+  );
+
+  const headerStyles = useMemo(
+    () => ({
+      padding: 0,
+      background: transparent ? 'transparent' : colorBgContainer,
+    }),
+    [transparent, colorBgContainer]
+  );
+
+  const layoutStyles = useMemo(
+    () => ({
+      height: '100%',
+      ...(transparent && { backgroundImage: 'url("/brick-wall.webp")' }),
+    }),
+    []
+  );
+
+  const menuStyles = useMemo(
+    () => ({
+      ...(transparent && { backgroundColor: 'transparent' }),
+    }),
+    []
   );
 
   const ToggleIcon = useMemo(() => {
@@ -71,19 +109,19 @@ export function AntNavExpandLayout({
   }
 
   return (
-    <Layout style={{ height: '100%' }} hasSider>
+    <Layout style={layoutStyles} hasSider {...mainLayoutProps}>
       {isSmAndUp && (
-        <Sider breakpoint={'lg'} trigger={null} collapsible collapsed={isCollapsed}>
+        <Sider style={sliderStyles} breakpoint={'lg'} trigger={null} collapsible collapsed={isCollapsed}>
           <Space>
             <Avatar style={{ margin: '10px', marginLeft: isCollapsed ? '20px' : '10px' }} size={'large'} />
             {!isCollapsed && <Input style={{ minWidth: '115px', width: '115px' }} size={'large'} />}
           </Space>
-          <AntMenu menuProps={menuProps} selectedKeys={selectedMenuKeys} onSelect={onSelectedItem} items={items} />
+          <AntMenu style={menuStyles} selectedKeys={selectedMenuKeys} onSelect={onSelectedItem} items={items} />
         </Sider>
       )}
-      <Layout>
+      <Layout style={{ backgroundColor: 'transparent' }} {...contentLayoutProps}>
         {!noHeader && (
-          <Header style={{ padding: 0, background: colorBgContainer, borderBottom: '1px solid white' }}>
+          <Header style={headerStyles} {...headerProps}>
             {!noCollapse && isSmAndUp && <AntIconButton icon={ToggleIcon} onClick={handleChangeCollapse} />}
             {HeaderChild}
           </Header>
@@ -91,7 +129,7 @@ export function AntNavExpandLayout({
         <Content style={contentStyle}>{Default}</Content>
       </Layout>
 
-      {isXs && <AntMobileMenu items={mobileItems}/>}
+      {isXs && <AntMobileMenu items={mobileItems} />}
     </Layout>
   );
 }

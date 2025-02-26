@@ -31,7 +31,7 @@ export function MainLayout({ children }: LayoutProps) {
   }
 
   return (
-    <AntNavExpandLayout items={items} onSelectedItem={handleSelectedItem}>
+    <AntNavExpandLayout items={items} onSelectedItem={handleSelectedItem} transparent>
       <UiHelpersNamedChild<AntNavExpandLayoutChildren>>{children}</UiHelpersNamedChild>
     </AntNavExpandLayout>
   );

@@ -10,18 +10,17 @@ export interface AntMenuItem {
   children?: Omit<AntMenuItem, 'children'>[];
 }
 
-export interface AntMenuProps {
+export interface AntMenuProps extends Omit<MenuProps, 'onSelect'> {
   items?: AntMenuItem[];
-  menuProps?: MenuProps;
   selectedKeys?: string[];
   onSelect?: (item?: AntMenuItem) => void;
 }
 
-export function AntMenu({ items, menuProps, selectedKeys, onSelect }: AntMenuProps) {
+export function AntMenu({ items, selectedKeys, onSelect, ...rest }: AntMenuProps) {
   function handleSelected(selectEvent: { key: string }) {
     const item = findElementInArrayByValue(items, 'key', selectEvent.key);
     onSelect?.(item);
   }
 
-  return <Menu theme={'dark'} selectedKeys={selectedKeys} items={items} onSelect={handleSelected} {...menuProps} />;
+  return <Menu theme={'dark'} selectedKeys={selectedKeys} items={items} onSelect={handleSelected} {...rest} />;
 }
