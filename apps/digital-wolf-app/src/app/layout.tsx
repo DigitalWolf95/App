@@ -7,6 +7,9 @@ import { SystemContextProvider } from '../context/SystemContext';
 export const metadata = {
   title: 'Digital-Wolf',
   description: 'Digital-Wolf Development Workspace',
+  icons: {
+    icon: '/favicon.webp',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
