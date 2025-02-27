@@ -79,7 +79,9 @@ export function AntNavExpandLayout({
   const headerStyles = useMemo(
     () => ({
       padding: 0,
-      background: transparent ? 'transparent' : colorBgContainer,
+      background: transparent
+        ? 'linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 54%, rgba(0,0,0,1) 100%)'
+        : colorBgContainer,
     }),
     [transparent, colorBgContainer]
   );
