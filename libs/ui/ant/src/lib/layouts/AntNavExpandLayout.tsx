@@ -71,7 +71,7 @@ export function AntNavExpandLayout({
 
   const sliderStyles = useMemo(
     () => ({
-      ...(transparent && { backgroundColor: 'transparent' }),
+      ...(transparent && { background: 'linear-gradient(260deg, rgba(0,0,0,0) 64%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%)' }),
     }),
     [transparent]
   );
@@ -129,7 +129,7 @@ export function AntNavExpandLayout({
         <Content style={contentStyle}>{Default}</Content>
       </Layout>
 
-      {isXs && <AntMobileMenu items={mobileItems} />}
+      {isXs && <AntMobileMenu transparent={transparent} items={mobileItems} />}
     </Layout>
   );
 }
