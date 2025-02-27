@@ -15,7 +15,7 @@ export function BaseContainer({ children }: BaseContainerProps) {
   return (
     <Fragment>
       <UiAgnosticGlobalLoader isActive={!appLoaded}>
-        <Image className={'animate-bounce'} src={'/DigitalWolf.png'} alt={'Digital Wolf Logo'} width={200} height={200} />
+        <Image className={'animate-bounce'} src={'/DigitalWolf.webp'} alt={'Digital Wolf Logo'} width={200} height={200} />
       </UiAgnosticGlobalLoader>
       {children}
     </Fragment>
