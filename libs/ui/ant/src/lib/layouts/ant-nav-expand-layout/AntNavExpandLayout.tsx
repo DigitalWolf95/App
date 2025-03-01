@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './AntNavExpandLayout.module.scss';
+import styles from './_AntNavExpandLayout.module.scss';
 import { useMemo, useState, HTMLProps } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Layout, theme, MenuProps, LayoutProps } from 'antd';
@@ -107,7 +107,11 @@ export function AntNavExpandLayout({
   }
 
   return (
-    <Layout className={styles.AntNavExpandLayout} style={layoutStyles} hasSider {...mainLayoutProps}>
+    <Layout
+      className={`${styles.AntNavExpandLayout} ${styles.AntNavExpandLayoutTransparent}`}
+      style={layoutStyles}
+      hasSider
+      {...mainLayoutProps}>
       {isSmAndUp && (
         <Sider style={sliderStyles} trigger={null} collapsible collapsed={isCollapsed}>
           {AvatarChild}

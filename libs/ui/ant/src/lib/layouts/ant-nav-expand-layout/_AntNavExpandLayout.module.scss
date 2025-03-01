@@ -1,6 +1,11 @@
 .AntNavExpandLayout {
   height: 100%;
 
+  &Transparent {
+    background-position: center !important;
+    background-size: cover !important;
+  }
+
   .header {
     padding: 0;
 
@@ -12,10 +17,10 @@
   .content {
     overflow-y: auto;
     padding-bottom: 60px;
+
     @media (max-width: 639px) {
       padding-inline: 20px;
       text-align: center;
-
     }
   }
 }
