@@ -1,6 +1,10 @@
-import { ReactNode, Children } from 'react';
+import { ReactNode } from 'react';
 import { Menu, MenuProps } from 'antd';
 import { findElementInArrayByValue } from '@digital-wolf/fns';
+
+const { Item } = Menu;
+
+export const AntMenuItem = Item;
 
 export interface AntMenuItem {
   key: string;

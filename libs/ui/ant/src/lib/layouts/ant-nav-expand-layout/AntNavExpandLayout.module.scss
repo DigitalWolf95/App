@@ -1,0 +1,21 @@
+.AntNavExpandLayout {
+  height: 100%;
+
+  .header {
+    padding: 0;
+
+    @media (max-width: 639px) {
+      text-align: center;
+    }
+  }
+
+  .content {
+    overflow-y: auto;
+    padding-bottom: 60px;
+    @media (max-width: 639px) {
+      padding-inline: 20px;
+      text-align: center;
+
+    }
+  }
+}
