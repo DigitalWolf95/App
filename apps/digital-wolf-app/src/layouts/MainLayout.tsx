@@ -12,7 +12,7 @@ const items: AntMenuItem[] = [
     key: '1',
     icon: <UserOutlined />,
     label: 'Under',
-    to: 'dadwa',
+    to: '/user-settings',
   },
   {
     key: '2',
