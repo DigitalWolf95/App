@@ -3,6 +3,7 @@
 import { ReactNode, Fragment } from 'react';
 import { useSystemContext } from '../context/SystemContext';
 import { UiAgnosticGlobalLoader } from '@digital-wolf/ui-agnostic';
+import '@digital-wolf/firebase'
 import Image from 'next/image';
 
 export interface BaseContainerProps {
