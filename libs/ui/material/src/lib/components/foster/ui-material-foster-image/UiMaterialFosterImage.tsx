@@ -3,6 +3,7 @@ import styles from './UiMaterialFosterImage.module.scss';
 import { Typography } from '@mui/material';
 import { DivProps, Image as ImageType } from '@digital-wolf/types';
 import { UiHelpersIf } from '@digital-wolf/ui-helpers';
+import { makeImageUrl } from '@digital-wolf/fns';
 
 export interface UiMaterialFosterImageProps {
   image?: ImageType;
@@ -16,6 +17,9 @@ export interface UiMaterialFosterImageProps {
 }
 
 export function UiMaterialFosterImage({ image, text, type = 'img', alt, url, noZoom, imageProps, onClick }: UiMaterialFosterImageProps) {
+
+  const urlToUse = makeImageUrl(image?.url || url);
+
   return (
     <UiHelpersIf If={image || url}>
       <div
@@ -38,7 +42,7 @@ export function UiMaterialFosterImage({ image, text, type = 'img', alt, url, noZ
             style={{ objectFit: 'cover', aspectRatio: '16/9' }}
             width={1000}
             height={1000}
-            src={image?.url ?? url ?? ''}
+            src={urlToUse}
             alt={alt ?? ''}
           />
         </UiHelpersIf>
@@ -49,7 +53,7 @@ export function UiMaterialFosterImage({ image, text, type = 'img', alt, url, noZ
               noZoom ? '' : styles['SharedContentImage__image-zoom']
             } ${imageProps?.className ?? ''}`}
             style={{
-              backgroundImage: `url('${image?.url ?? url ?? ''}')`,
+              backgroundImage: `url('${urlToUse}')`,
               ...(imageProps?.style ?? {}),
             }}
           />

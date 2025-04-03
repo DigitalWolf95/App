@@ -11,7 +11,7 @@ import { UiMaterialTextField } from '../ui-material-text-field/UiMaterialTextFie
 import { UiMaterialButton } from '../../elements/ui-material-button/UiMaterialButton';
 import { DeleteForeverIcon, ImageNotSupportedOutlinedIcon } from '@digital-wolf/ui-icons';
 import { UiMaterialGridBreak } from '../../elements/ui-material-grid-break/UiMaterialGridBreak';
-import { getFilePreviewURL } from '@digital-wolf/fns';
+import { getFilePreviewURL, makeImageUrl } from '@digital-wolf/fns';
 import { UiMaterialUploadFile } from '../ui-material-upload-file/UiMaterialUploadFile';
 import classes from './UiMaterialUploadImage.module.scss';
 import clsx from 'clsx';
@@ -53,6 +53,7 @@ function UiMaterialUploadImageFnc<T extends ImageToStoreList>(
   useEffect(() => {
     async function getUrl() {
       const imgToStore = state?.[name as string] || stateImage;
+      if (imgToStore?.type === 'remove') return;
       if (imgToStore?.type === 'file') {
         const res = await getFilePreviewURL(imgToStore.value);
         setPreviewUrl(res);
@@ -60,11 +61,11 @@ function UiMaterialUploadImageFnc<T extends ImageToStoreList>(
       }
 
       if (imgToStore?.type === 'url') {
-        setPreviewUrl(imgToStore.value);
+        setPreviewUrl(makeImageUrl(imgToStore.value));
         return;
       }
 
-      setPreviewUrl(image ?? src ?? undefined);
+      setPreviewUrl(makeImageUrl(image || src || ''));
     }
 
     getUrl();
@@ -133,7 +134,7 @@ function UiMaterialUploadImageFnc<T extends ImageToStoreList>(
   }
 
   return (
-    <UiMaterialCardOutlined style={{ aspectRatio: '16/9', width: '100%', height: '100%', marginBottom: '20px' }} label={label}>
+    <UiMaterialCardOutlined style={{ width: '100%', height: '100%', marginBottom: '20px' }} label={label}>
       <UiMaterialGridContainer centerX={false} spacing={0} mb={0}>
         <UiHelpersIf If={useExternalLink}>
           <UiMaterialGridSwitch

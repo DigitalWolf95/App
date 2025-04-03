@@ -25,14 +25,14 @@ export async function getImageFromS3({ bucketName, s3Client, key }: GetImageFrom
   return s3Client.send(getCommand);
 }
 
-export async function uploadImageToS3({ image, fileName, bucketName, folder, s3Client }: UploadImageToS3Params) {
-  const buffer = Buffer.from(await image.arrayBuffer());
+export async function uploadImageToS3({ image, buffer, fileName, bucketName, folder, s3Client }: UploadImageToS3Params) {
+  const bufferX = buffer ?? Buffer.from(await image.arrayBuffer());
   const fileNameKey = fileName ? fileName.replaceAll(' ', '_') : image.name.replaceAll(' ', '_');
   const folderAndName = folder ? `${folder}/${fileNameKey}` : `${fileNameKey}`;
-  const command: PutObjectCommandInput = { Bucket: bucketName, Key: folderAndName, Body: buffer, ContentType: 'image' };
+  const command: PutObjectCommandInput = { Bucket: bucketName, Key: folderAndName, Body: bufferX, ContentType: 'image' };
   const putCommand = new PutObjectCommand(command);
   await s3Client.send(putCommand);
-  return getUploadedAssetS3Url(command);
+  return getUploadedAssetS3Url(command, {nameOnly: true});
 }
 
 export async function deleteImageFromS3({ url, bucketName, s3Client }: { url?: string; bucketName: string; s3Client: S3Client }) {
@@ -47,7 +47,8 @@ function getKeyFromS3Url(fileUrl: string) {
   return parsedUrl?.pathname?.substring(1);
 }
 
-function getUploadedAssetS3Url(command: PutObjectCommandInput) {
+function getUploadedAssetS3Url(command: PutObjectCommandInput, {nameOnly}: {nameOnly?: boolean} = {}) {
+  if (nameOnly) return command.Key as string;
   return `https://${command.Bucket}.s3.eu-north-1.amazonaws.com/${command.Key}`;
 }
 
@@ -63,6 +64,7 @@ interface UploadImageToS3Params {
   bucketName: string;
   s3Client: S3Client;
   folder?: string;
+  buffer: any;
 }
 
 interface CreateS3ClientParams {

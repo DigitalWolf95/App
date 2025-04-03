@@ -11,3 +11,4 @@ export * from './lib/fns-uuid';
 export * from './lib/fns-formData';
 export * from './lib/fns-concurrentlyAwait';
 export * from './lib/fns-promise';
+export * from './lib/fns-links';

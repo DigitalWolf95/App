@@ -3,8 +3,9 @@ import { deleteImageFromS3, getImageFromS3, uploadImageToS3 } from './../service
 import { S3Client } from '@aws-sdk/client-s3';
 import { Image, ImageToStore, ImageToStoreFile } from '@digital-wolf/types';
 import { createImageDoc, get404ImageFromPublic } from './nextApiImageUtils';
-import { deserialize } from '@digital-wolf/fns';
+import { deserialize, uuidV4 } from '@digital-wolf/fns';
 import { ApiServerResponse } from './../services';
+import sharp from 'sharp';
 
 export async function nextApiImageGET({
   req,
@@ -74,9 +75,11 @@ export async function nextApiImagePOST({
     if (!image) {
       return NextResponse.json({ message: 'Image file required', success: false }, { status: 400 });
     }
-
-    const imageDoc = await createImageDoc(image, (img: ImageToStoreFile) => {
-      return uploadImageToS3({ image: img.value, s3Client, bucketName, folder: 'images' });
+    const imageDoc = await createImageDoc(image, async (img: ImageToStoreFile) => {
+      const buffer = Buffer.from(await img.value.arrayBuffer());
+      const webpBuffer = await sharp(buffer).webp() .toBuffer();
+      const fileName = `image_${uuidV4()}`;
+      return uploadImageToS3({ image: img.value, s3Client, bucketName, folder: 'images', buffer: webpBuffer, fileName });
     });
 
     return NextResponse.json({ success: true, data: { image: imageDoc } });

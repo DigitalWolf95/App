@@ -26,6 +26,6 @@ export const firebase: { app: FirebaseApp, analytics: Analytics | null, DB: Fire
   storage: firebaseStorage
 }
 
-isSupported().then(() => {
-  firebase.analytics = getAnalytics();
+isSupported().then((value) => {
+  if (value) firebase.analytics = getAnalytics();
 })

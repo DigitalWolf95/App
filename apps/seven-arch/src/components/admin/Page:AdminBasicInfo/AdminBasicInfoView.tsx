@@ -52,7 +52,9 @@ export function AdminBasicInfoView({ onSubmit, data, images, loadingFlags }: Adm
       <UiMaterialGridItem>
         <UiMaterialTextField required name={'companyName'} label={'Company Name'} value={fields.companyName} onChange={handleDataChange} />
       </UiMaterialGridItem>
-      <UiMaterialUploadImage
+     
+     <UiMaterialGridItem>
+     <UiMaterialUploadImage
         useExternalLink={true}
         label={'Splash Screen Image'}
         name={'loadingScreenImage'}
@@ -61,7 +63,8 @@ export function AdminBasicInfoView({ onSubmit, data, images, loadingFlags }: Adm
         state={imagesState}
         src={images.loadingScreenImage?.url}
       />
-
+     </UiMaterialGridItem>
+      
       <UiMaterialGridItem>
         <UiMaterialButton fullWidth btnType={'LoadingButton'} loading={loadingFlags.submit} type={'submit'}>
           Save

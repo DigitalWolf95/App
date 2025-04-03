@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './UiMaterialSplashScreen.module.scss';
 import clsx from 'clsx';
 import { LinearProgress } from '@mui/material';
+import { makeImageUrl } from '@digital-wolf/fns';
 
 export interface UiMaterialSplashScreenProps {
   imageUrl?: string;
@@ -32,7 +33,7 @@ export function UiMaterialSplashScreen({ imageUrl, fadeDelay = 0, trigger }: UiM
     <div>
       <div className={clsx([styles['splash-screen'], { [styles['splash-screen-out']]: !isFadeInProgress }])}>
         <div
-          style={{ backgroundImage: `url(${imageUrl})` }}
+          style={{ backgroundImage: `url(${makeImageUrl(imageUrl)})` }}
           className={clsx([
             styles['splash-image'],
             { [styles['splash-image--in']]: isFadeInProgress, [styles['splash-image--out']]: !isFadeInProgress },
