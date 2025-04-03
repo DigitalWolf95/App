@@ -53,7 +53,7 @@ export function useArticleData({ entity, link, options }: UseArticleDataProps) {
       link,
       entity,
     };
-
+    console.log('save')
     const article = await saveArticleApi(formattedPayload);
     updateState({ article });
     return article;
@@ -63,9 +63,14 @@ export function useArticleData({ entity, link, options }: UseArticleDataProps) {
     const formattedPayload: UpdateArticlePayload = {
       id: id,
       ...payload,
+      subArticles: payload.subArticles?.map(({image, ...rest}) => {
+        return {...rest, image: image ?? state.article?.subArticles?.find((aSub) => aSub.id === rest.id)?.image}
+      }),
       link,
       entity,
     } as UpdateArticlePayload;
+
+    console.log('update', payload);
 
     const article = await updateArticleApi(formattedPayload);
     updateState({ article });
@@ -76,8 +81,8 @@ export function useArticleData({ entity, link, options }: UseArticleDataProps) {
   const updateArticleMemo = useCallback(updateArticle, [entity, link, updateState]);
 
   async function handleSubmitArticle(payload: MainArticleSubmitPayload | null | undefined = state.articlePayload) {
+    console.log('pat:', payload)
     if (!payload) return;
-
     try {
       updateState({ isArticleSubmitLoading: true });
       if (state.article) {

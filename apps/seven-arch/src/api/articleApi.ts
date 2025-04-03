@@ -1,7 +1,7 @@
 import { Article, ArticleFeature, SubArticle } from '../models/articleModels';
 import { EntityKeys } from '../models/firebaseBaseModels';
 import { getEntities, getEntityById, storeEntity, updateEntityById } from '@digital-wolf/firebase/entity';
-import { ImageToStore } from '@digital-wolf/types';
+import { Image, ImageToStore } from '@digital-wolf/types';
 import { storeImageApi } from './imageApi';
 
 export async function fetchArticles(): Promise<DataArticles> {
@@ -18,6 +18,12 @@ export async function saveArticleApi(payload: SaveArticlePayload): Promise<Artic
   const { image, subArticles, ...dataPayload } = payload;
   const id = `article-${payload.entity}`;
   const storedImage = await storeImageApi(payload.image);
+
+  console.log('prepare: ', {
+    entity: 'articles',
+    payload: { ...dataPayload, ...(storedImage && { image: storedImage }), subArticles: await prepareSubarticles(subArticles) },
+    id,
+  });
 
   return await storeEntity<Article>({
     entity: 'articles',
@@ -40,8 +46,12 @@ export async function updateArticleApi(payload: UpdateArticlePayload): Promise<A
 async function prepareSubarticles(subArticles?: SaveSubArticlePayload[]): Promise<SubArticle[] | undefined> {
   if (!subArticles) return;
   return (await Promise.all(
-    subArticles.map(async (subArticle) => {
-      return { ...subArticle, image: (await storeImageApi(subArticle.image)) ?? null };
+    subArticles.map(async ({image, ...subArticle}) => {
+      if ((image as Image)?.id) {
+        return {...subArticle, image};
+      }
+      const storagedImage =  await storeImageApi(image as ImageToStore) ?? null;
+      return { ...subArticle, ...(storagedImage && {image: storagedImage})};
     })
   )) as SubArticle[];
 }
@@ -69,7 +79,7 @@ export interface UpdateArticlePayload extends SaveArticlePayload {
 export interface SaveSubArticlePayload {
   readonly id?: string;
   readonly content?: string;
-  readonly image?: ImageToStore | null | undefined;
+  readonly image?: ImageToStore | Image | null | undefined;
   readonly state?: boolean;
   readonly link?: string;
 }

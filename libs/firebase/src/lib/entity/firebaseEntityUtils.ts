@@ -12,7 +12,7 @@ export async function storeEntity<T extends GenericPayload>({ entity, payload, i
 
 export async function updateEntityById<T extends GenericPayload>({ entity, id, payload }: { entity: string; id: string; payload: T }) {
   const docRef = doc(firebaseDB, entity, id);
-  await setDoc(docRef, { ...payload, id }, { merge: true });
+  await setDoc(docRef, { ...payload, id }, { merge: true, });
   return (await getDoc(docRef)).data() as T;
 }
 
