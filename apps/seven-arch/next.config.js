@@ -5,11 +5,16 @@
 const { composePlugins, withNx } = require('@nx/next');
 const { join } = require('path');
 const { buildSync } = require('esbuild');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * @param {any} a
  */
 function testPlugin(a) {
+  const swDestPath = path.join(__dirname, './public/service-worker.js');
+  const envCacheName = `seven-arch-cache-v-${process.env.NEXT_PUBLIC_SW_CACHE_VERSION}` || 'default-cache';
+
   buildSync({
     // minify: true,
     // minifySyntax: true,
@@ -17,6 +22,14 @@ function testPlugin(a) {
     entryPoints: ['./src/service-worker.ts'],
     outfile: join(__dirname, 'public', 'service-worker.js'),
   });
+  
+
+  if (fs.existsSync(swDestPath)) {
+    let swContent = fs.readFileSync(swDestPath, 'utf-8');
+    swContent = swContent.replace('__CACHE_NAME__', envCacheName);
+    fs.writeFileSync(swDestPath, swContent, 'utf-8');
+  }
+
   return a;
 }
 

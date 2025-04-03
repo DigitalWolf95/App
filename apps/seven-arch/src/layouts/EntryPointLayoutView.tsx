@@ -14,7 +14,12 @@ export function EntryPointLayoutView({ children }: EntryPointLayoutViewProps) {
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').then((registration) => console.log('scope is: ', registration.scope));
+      navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+        console.log('scope is: ', registration.scope);
+        registration.active?.postMessage({
+          cacheVersion: process.env.NEXT_PUBLIC_SW_CACHE_VERSION,
+        });
+      });
     }
   }, []);
 

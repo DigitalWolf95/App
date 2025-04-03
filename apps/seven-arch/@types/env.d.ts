@@ -16,6 +16,7 @@ declare global {
       AWS_S3_ACCESS_KEY: string;
       AWS_S3_SECRET_ACCESS_KEY: string;
       AWS_S3_BUCKET_NAME: string;
+      NEXT_PUBLIC_SW_CACHE_VERSION: string;
     }
   }
 }
