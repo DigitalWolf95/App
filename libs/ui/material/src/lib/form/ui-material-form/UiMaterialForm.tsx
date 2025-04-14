@@ -6,7 +6,7 @@ import { UiHelpersIf } from '@digital-wolf/ui-helpers';
 import { UiMaterialGridContainer, UiMaterialGridContainerProps } from '../../elements/ui-material-grid-container/UiMaterialGridContainer';
 
 export interface UiMaterialFormProps {
-  containerProps?: UiMaterialGridContainerProps;
+  containerProps?: Omit<UiMaterialGridContainerProps, 'children'>;
   children?: ReactNode;
   grid?: boolean;
   isLoading?: boolean;

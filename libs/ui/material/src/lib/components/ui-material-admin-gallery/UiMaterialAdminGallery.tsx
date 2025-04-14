@@ -1,7 +1,7 @@
 import classes from './UiMaterialAdminGallery.module.scss';
 import { useMemo } from 'react';
 import { Image } from '@digital-wolf/types';
-import { changeArrayElementPosition, sortArray } from '@digital-wolf/fns';
+import { changeArrayElementPosition, makeImageUrl, sortArray } from '@digital-wolf/fns';
 import { UiMaterialCardOutlined } from '../../cards/ui-material-card-outlined/UiMaterialCardOutlined';
 import { UiHelpersDragAndDrop, UiHelpersIf } from '@digital-wolf/ui-helpers';
 import { DeleteForeverIcon, DragIndicatorIcon } from '@digital-wolf/ui-icons';
@@ -46,7 +46,7 @@ export function UiMaterialAdminGallery({ loading, images = [], onRemoveImage, on
                     <DeleteForeverIcon style={{ fontSize: '30px' }} />
                   </UiMaterialButton>
                 </div>
-                <div style={{ height: '100%', width: '100%', backgroundImage: `url(${img.url})`, backgroundPosition: 'center', backgroundSize: 'cover' }} />
+                <div style={{ height: '100%', width: '100%', backgroundImage: `url(${makeImageUrl(img.url)})`, backgroundPosition: 'center', backgroundSize: 'cover' }} />
               </div>
             </div>
           ))}

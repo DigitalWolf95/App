@@ -1,11 +1,5 @@
 .UiMaterialLinkBar {
-  &__link {
-    &:first-child {
-      margin-left: 0 !important;
-    }
-
-    &:last-child {
-      margin-right: 0 !important;
-    }
-  }
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }

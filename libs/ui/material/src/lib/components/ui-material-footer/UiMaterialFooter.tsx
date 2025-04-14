@@ -26,13 +26,13 @@ export function UiMaterialFooter({ children, noDivider, dividerProps, breakpoint
           {Divider}
         </UiMaterialGridItem>
 
-        <UiMaterialGridItem {...breakpoints}>{SecondQuadrant}</UiMaterialGridItem>
+        <UiMaterialGridItem style={{maxWidth: '100%'}} {...breakpoints}>{SecondQuadrant}</UiMaterialGridItem>
 
-        <UiMaterialGridItem {...breakpoints}>{FirstQuadrant}</UiMaterialGridItem>
+        <UiMaterialGridItem style={{maxWidth: '100%'}} {...breakpoints}>{FirstQuadrant}</UiMaterialGridItem>
 
-        <UiMaterialGridItem {...breakpoints}>{FourthQuadrant}</UiMaterialGridItem>
+        <UiMaterialGridItem style={{maxWidth: '100%'}} {...breakpoints}>{FourthQuadrant}</UiMaterialGridItem>
 
-        <UiMaterialGridItem {...breakpoints}>{ThirdQuadrant}</UiMaterialGridItem>
+        <UiMaterialGridItem style={{maxWidth: '100%'}} {...breakpoints}>{ThirdQuadrant}</UiMaterialGridItem>
       </UiMaterialGridContainer>
     </footer>
   );

@@ -18,8 +18,8 @@ export function HomePageView({ images, articles, onSubscribe, onArticleCLick, on
       <div>
         <UiAgnosticCarousel images={images} />
       </div>
-      <UiMaterialGridContainer mt={0} mb={3} pt={0}>
-        <UiMaterialGridItem xs={12}>
+      <UiMaterialGridContainer mt={0} mb={3} pt={0} width={'100%'}>
+        <UiMaterialGridItem style={{padding: 0}} xs={12}>
           {(articles || []).map((article) => (
             <UiFeaturesFosterArticle
               key={article.id}

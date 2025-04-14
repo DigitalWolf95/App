@@ -30,7 +30,8 @@
         "@typescript-eslint/no-empty-interface": 0,
         "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off",
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "eqeqeq": "off"
       }
     },
     {

@@ -44,16 +44,16 @@ export function AdminBasicInfoView({ onSubmit, data, images, loadingFlags }: Adm
   }
 
   return (
-    <UiMaterialForm isLoading={loadingFlags.init} onSubmit={handleSubmit}>
-      <UiMaterialGridItem centerText>
+    <UiMaterialForm containerProps={{width: '100%'}} isLoading={loadingFlags.init} onSubmit={handleSubmit}>
+      <UiMaterialGridItem centerText paddingLeft={0}>
         <UiMaterialTextHeading level={4}> Basic Info </UiMaterialTextHeading>
       </UiMaterialGridItem>
 
-      <UiMaterialGridItem>
+      <UiMaterialGridItem paddingLeft={0}>
         <UiMaterialTextField required name={'companyName'} label={'Company Name'} value={fields.companyName} onChange={handleDataChange} />
       </UiMaterialGridItem>
      
-     <UiMaterialGridItem>
+     <UiMaterialGridItem paddingLeft={0}>
      <UiMaterialUploadImage
         useExternalLink={true}
         label={'Splash Screen Image'}
@@ -65,7 +65,7 @@ export function AdminBasicInfoView({ onSubmit, data, images, loadingFlags }: Adm
       />
      </UiMaterialGridItem>
       
-      <UiMaterialGridItem>
+      <UiMaterialGridItem paddingLeft={0}>
         <UiMaterialButton fullWidth btnType={'LoadingButton'} loading={loadingFlags.submit} type={'submit'}>
           Save
         </UiMaterialButton>

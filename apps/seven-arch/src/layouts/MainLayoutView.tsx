@@ -33,7 +33,7 @@ export function MainLayoutView({ children, drawerProps, socialNetworkProps, basi
     <UtilsLayout Layout={UiMaterialLayout} layoutProps={{ maxMainWidth: mainViewMaxWidth }}>
       <UiHelpersNamedChild<UiMaterialLayoutChildren> name={'AppBar'}>
         <UiMaterialAppBar>
-          <UiHelpersNamedChild<UiMaterialAppBarChildren> name={'Logo'}>{basicInfo?.basicInfo.companyName}</UiHelpersNamedChild>
+          <UiHelpersNamedChild<UiMaterialAppBarChildren> name={'Logo'}>{basicInfo?.basicInfo?.companyName}</UiHelpersNamedChild>
 
           <UiHelpersNamedChild<UiMaterialAppBarChildren> name={'Default'}>
             <UiMaterialButton btnType={'Icon'} onClick={() => drawerProps.onChange(!drawerProps.value)}>
