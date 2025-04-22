@@ -35,7 +35,7 @@ export function MainLayout({ children }: LayoutProps) {
     <AntNavExpandLayout items={items} onSelectedItem={handleSelectedItem} transparent>
       <UiHelpersNamedChild<AntNavExpandLayoutChildren>>{children}</UiHelpersNamedChild>
       <UiHelpersNamedChild<AntNavExpandLayoutChildren> name={'Header'}>
-        <AntText className={'!text-xl'}>Digital Wolf | Frontend Architect</AntText>
+        <AntText className={'!text-xl'}>Digital Wolf | Frontend Architect - Site Under Development</AntText>
       </UiHelpersNamedChild>
       <UiHelpersNamedChild<AntNavExpandLayoutChildren> name={'Avatar'}>
         <AntFlex className={'!p-4'} centerX centerY>

@@ -4,10 +4,13 @@ import styles from './HomePage.module.scss';
 export default async function Index() {
   return (
     <AntFlex className={styles.HomePage} center fullHeight>
-      <AntTitle>Scalable Frontend Architectures </AntTitle>
-      <AntTitle className={'!mt-0'}>for Large-Scale Applications</AntTitle>
+      <AntTitle>Frontend Support for Devs Who Are Almost There</AntTitle>
+      <AntTitle className={'!mt-0'}>Hands-on support with React, Vue, Next, Nuxt & Nx</AntTitle>
+      <AntText className={'!text-xl mb-5'}>
+      Stuck on a feature? Need to clean up a messy codebase? Or just want a second pair of eyes before pushing to prod?
+      </AntText>
       <AntText className={'!text-xl'}>
-        Optimizing modern frontend systems with TypeScript, React, Next.js, and NX Monorepos
+      I help solid developers go from “almost there” to “nailed it.”
       </AntText>
       <AntFlex
         className={'max-w-[400px] w-full !mt-10 sm:gap-[80px] gap-[40px] justify-between flex-col sm:flex-row items-center'}>
