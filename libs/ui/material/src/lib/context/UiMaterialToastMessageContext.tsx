@@ -8,7 +8,10 @@ interface UiMaterialToastMessageContextValues {
   closeToastMessage: () => void;
 }
 
-const UiMaterialToastMessageContext = createContext<UiMaterialToastMessageContextValues>({ showToastMessage: () => {}, closeToastMessage: () => {} });
+const UiMaterialToastMessageContext = createContext<UiMaterialToastMessageContextValues>({
+  showToastMessage: () => {},
+  closeToastMessage: () => {},
+});
 
 export const useUiMaterialToastMessage = () => {
   return useContext(UiMaterialToastMessageContext);
@@ -40,12 +43,16 @@ export function UiMaterialToastMessageProvider({ children }: { children: ReactNo
   );
   return (
     <>
-      <Snackbar open={open} autoHideDuration={4000} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} onClose={closeToastMessage}>
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        onClose={closeToastMessage}>
         <Alert onClose={closeToastMessage} severity={type} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>
-      <UiMaterialToastMessageContext.Provider value={providerValue}>{children}</UiMaterialToastMessageContext.Provider>;
+      <UiMaterialToastMessageContext.Provider value={providerValue}>{children}</UiMaterialToastMessageContext.Provider>
     </>
   );
 }

@@ -1,0 +1,26 @@
+# Stage 1: Install dependencies and build
+FROM node:20-alpine
+
+# Install PNPM
+RUN npm install -g pnpm
+
+# Set working directory
+WORKDIR /app
+
+# Copy lockfile and package.json files
+COPY package.json ./
+COPY nx.json ./
+COPY tsconfig.base.json ./
+COPY apps ./apps
+COPY libs ./libs
+COPY .npmrc ./
+
+# Install dependencies with pnpm
+RUN pnpm install
+
+EXPOSE 4200
+
+# Build the NX app (replace `my-app` with the actual name of your app)
+#RUN npx nx serve digital-wolf-app
+
+CMD ["npx", "nx", "serve", "digital-wolf-app"]

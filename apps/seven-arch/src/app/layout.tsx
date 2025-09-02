@@ -1,4 +1,5 @@
 import '@digital-wolf/styles';
+import '../styles/global.scss';
 import { ReactNode } from 'react';
 import { EntryPointLayoutView } from '../layouts/EntryPointLayoutView';
 import { UiMaterialToastMessageProvider } from '@digital-wolf/ui-material';

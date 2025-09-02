@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app        # 👈 Bind-mount local source code
+      - /app/node_modules  # 👈 Prevents overwriting node_modules with empty local folder
+    environment:
+      - NX_PROJECT
+    command: sh -c "npx nx serve $NX_PROJECT"
+   # command: npx nx serve digital-wolf-app
+    restart: unless-stopped

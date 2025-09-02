@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  web:
+    image: digital-wolf-app   # use the already built image
+    ports:
+      - "4200:4200"
+    restart: unless-stopped

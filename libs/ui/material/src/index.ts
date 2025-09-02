@@ -82,3 +82,5 @@ export * from './lib/dividers/UiMaterialDashedDivider';
 export * from './lib/dividers/UiMaterialDivider';
 
 export * from './lib/context/UiMaterialToastMessageContext';
+
+export * from './lib/components/m-ui-admin-list-item/MUiAdminListItem';
