@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { getFilePreviewURL } from '@digital-wolf/fns';
+import { getFilePreviewURL, imageTOWebp } from '@digital-wolf/fns';
 
 interface UiMaterialUploadFileProps {
   label?: string;
@@ -8,7 +8,7 @@ interface UiMaterialUploadFileProps {
 
 export function UiMaterialUploadFile({ label = 'Upload', onChange }: UiMaterialUploadFileProps) {
   async function handleOnChangeUpload(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+    const file = (await imageTOWebp(event)) as unknown as File;
 
     if (file) {
       const url = await getFilePreviewURL(file);
