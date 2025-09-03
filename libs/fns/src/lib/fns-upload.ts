@@ -1,4 +1,6 @@
 import imageCompression from 'browser-image-compression';
+import { ChangeEvent } from 'react';
+import { ImageToStore } from '@digital-wolf/types';
 
 export const getFilePreviewURL = (file?: File): Promise<string | undefined> => {
   if (!file) return new Promise((resolve) => resolve(undefined));
@@ -46,23 +48,31 @@ export const fileToBase64 = async (file: File): Promise<string> => {
   });
 };
 
-export async function imageTOWebp(event: any) {
-  const imageFile = event.target.files[0];
-  console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-  console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+export async function imageToWebp(imageFile: File | undefined): Promise<File | undefined> {
+  if (!imageFile) return undefined;
 
   const options = {
     maxSizeMB: 1,
     maxWidthOrHeight: 1920,
     useWebWorker: true,
   };
-  try {
-    const compressedFile = await imageCompression(imageFile, options);
-    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+  return await imageCompression(imageFile, options);
+}
 
-    return compressedFile;
-  } catch (error) {
-    console.log(error);
+export async function imageToStoreToWebp(image?: ImageToStore | null): Promise<ImageToStore | undefined> {
+  if (image?.type === 'file' && image.value) {
+    const webpImage = await imageToWebp(image.value);
+    if (!webpImage) return;
+    return {
+      type: 'file',
+      value: webpImage,
+    };
   }
+}
+
+export async function imageEventToWebp(event: ChangeEvent<HTMLInputElement>): Promise<File | undefined> {
+  if (!event.target.files || !event.target.files[0]) return;
+  const imageFile = event.target.files[0];
+
+  return await imageToWebp(imageFile);
 }

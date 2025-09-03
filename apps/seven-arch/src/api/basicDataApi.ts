@@ -3,6 +3,7 @@ import { getDocument, storeDocument, storeImageDocument } from '@digital-wolf/fi
 import { getImageLink } from '@digital-wolf/firebase/image';
 import { BasicInfoFormSubmit } from '../models/basicInfoModels';
 import { $http } from '@digital-wolf/api/services';
+import { imageToStoreToWebp, imageToWebp } from '@digital-wolf/fns';
 
 export async function fetchBasicInfo(): Promise<DataBasicInfo> {
   const basicInfo = await getDocument<DataBasicInfo['basicInfo']>('general', 'basicInfo');
@@ -12,9 +13,12 @@ export async function fetchBasicInfo(): Promise<DataBasicInfo> {
 
 export async function saveBasicInfoData(payload: BasicInfoFormSubmit): Promise<DataBasicInfo> {
   const basicInfo = await storeDocument('general', 'basicInfo', payload.data);
-  if (payload.images.loadingScreenImage) {
-    const response = await $http.post('api/image', { image: payload.images.loadingScreenImage }, { useFormData: true });
-    const loadingScreenImage = response.success ? await storeImageDocument('general', 'loadingScreenImage', response.data.image) : undefined;
+  const loadingScreenImageToStore = await imageToStoreToWebp(payload.images.loadingScreenImage);
+  if (loadingScreenImageToStore) {
+    const response = await $http.post('api/image', { image: loadingScreenImageToStore }, { useFormData: true });
+    const loadingScreenImage = response.success
+      ? await storeImageDocument('general', 'loadingScreenImage', response.data.image)
+      : undefined;
     return { basicInfo, basicInfoImages: { loadingScreenImage } };
   }
   return { basicInfo };
