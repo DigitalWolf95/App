@@ -3,6 +3,8 @@ import { useConcurrentlyAwait } from '@digital-wolf/hooks';
 import { fetchSliderImages } from '../../../api/homeApi';
 import { fetchArticles } from '../../../api/articleApi';
 
+export const revalidate = 600;
+
 export default async function HomePage() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sliderImages, articles] = await useConcurrentlyAwait(fetchSliderImages, fetchArticles);
